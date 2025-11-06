@@ -26,7 +26,7 @@ jobs:
 
           # Enable Remote Desktop and disable Network Level Authentication (if needed)
 
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' `
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0 -Force' `
 
                              -Name "fDenyTSConnections" -Value 0 -Force
 
