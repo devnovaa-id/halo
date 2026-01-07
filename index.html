@@ -1,218 +1,413 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Quotes - DevNova</title>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+    <title>NoNim</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📴</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .icon-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .message {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+            border-left: 5px solid #ffcc00;
+        }
+        
+        .message h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffcc00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .message h2 svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffcc00;
+        }
+        
+        .message ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .message li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .message li svg {
+            width: 18px;
+            height: 18px;
+            fill: #ffcc00;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        
+        .status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ff4444;
+            margin-right: 10px;
+            animation: blink 1.5s infinite;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background-color: #ffcc00;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #ffd633;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+        
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .connection-info {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .connection-info p {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .connection-info svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .rotate {
+            animation: rotate 2s linear infinite;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .offline-icon {
+                width: 90px;
+                height: 90px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="compact-header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <i class="fas fa-quote-left logo-icon"></i>
-                    <div>
-                        <h1>Random Quotes</h1>
-                        <p class="tagline">Powered by DevNova API</p>
-                    </div>
-                </div>
-                <div class="badge">
-                    <span class="devnova-badge">
-                        <i class="fas fa-code"></i> DevNova-ID
-                    </span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-grid">
-            <!-- Quote Display -->
-            <section class="quote-section">
-                <!-- Loading -->
-                <div id="loading" class="loading">
-                    <div class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
-                    <p>Fetching quotes...</p>
-                </div>
-
-                <!-- Quote Card -->
-                <div id="quote-container" class="quote-card hidden">
-                    <div class="quote-header">
-                        <span class="quote-id">
-                            <i class="fas fa-hashtag"></i> #<span id="quote-number">1</span>
-                        </span>
-                        <span class="timestamp" id="quote-date"></span>
-                    </div>
-
-                    <div class="quote-content">
-                        <i class="fas fa-quote-left opening-quote"></i>
-                        <p id="quote-text" class="quote-text"></p>
-                        <i class="fas fa-quote-right closing-quote"></i>
-                    </div>
-
-                    <div class="quote-footer">
-                        <div class="author">
-                            <span class="by">—</span>
-                            <span id="quote-author" class="author-name"></span>
-                            <a href="#" id="author-link" class="author-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-                        </div>
-
-                        <div id="quote-tags" class="tags"></div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="actions-grid">
-                        <button id="new-quote-btn" class="btn btn-primary">
-                            <i class="fas fa-random"></i> New
-                        </button>
-                        <button id="copy-quote-btn" class="btn btn-secondary">
-                            <i class="far fa-copy"></i> Copy
-                        </button>
-                        <button id="tweet-quote-btn" class="btn btn-twitter">
-                            <i class="fab fa-twitter"></i> Tweet
-                        </button>
-                        <button id="download-quote-btn" class="btn btn-success">
-                            <i class="fas fa-download"></i> Image
-                        </button>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="stats">
-                        <div class="stat">
-                            <i class="fas fa-database"></i>
-                            <span>Quotes: <strong id="total-quotes">0</strong></span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-sync-alt"></i>
-                            <span>Updated: <strong id="last-updated">now</strong></span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-signal"></i>
-                            <span>API: <strong id="api-status" class="api-live">Live</strong></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Canvas Preview -->
-                <div id="canvas-output" class="canvas-preview hidden">
-                    <h4><i class="fas fa-image"></i> Image Preview</h4>
-                    <canvas id="quote-canvas" width="600" height="300"></canvas>
-                    <div class="canvas-actions">
-                        <button id="save-image-btn" class="btn btn-sm btn-success">
-                            <i class="fas fa-save"></i> Save
-                        </button>
-                        <button id="copy-image-btn" class="btn btn-sm btn-primary">
-                            <i class="far fa-copy"></i> Copy
-                        </button>
-                        <button id="close-preview-btn" class="btn btn-sm btn-secondary">
-                            <i class="fas fa-times"></i> Close
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Controls Panel -->
-            <section class="controls-section">
-                <div class="panel">
-                    <h3><i class="fas fa-sliders-h"></i> Controls</h3>
-                    
-                    <div class="control-group">
-                        <label>
-                            <i class="fas fa-file-alt"></i> Page
-                        </label>
-                        <select id="page-select" class="form-select">
-                            <option value="1">Page 1</option>
-                            <option value="2">Page 2</option>
-                            <option value="3">Page 3</option>
-                            <option value="4">Page 4</option>
-                            <option value="5">Page 5</option>
-                            <option value="random">Random</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group">
-                        <label>
-                            <i class="fas fa-clock"></i> Delay: <span id="wait-time-value">2s</span>
-                        </label>
-                        <input type="range" id="wait-time" min="1" max="5" step="0.5" value="2">
-                    </div>
-
-                    <div class="checkboxes">
-                        <label class="checkbox">
-                            <input type="checkbox" id="include-tags" checked>
-                            <i class="fas fa-tag"></i> Tags
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" id="include-author" checked>
-                            <i class="fas fa-user"></i> Author
-                        </label>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button id="scrape-now-btn" class="btn btn-warning">
-                            <i class="fas fa-bolt"></i> Scrape Now
-                        </button>
-                        <button id="clear-cache-btn" class="btn btn-outline">
-                            <i class="fas fa-trash"></i> Clear Cache
-                        </button>
-                    </div>
-
-                    <div class="api-info">
-                        <h4><i class="fas fa-code"></i> API Info</h4>
-                        <p><strong>Endpoint:</strong> /api/tools/puppeteer</p>
-                        <p><strong>Source:</strong> quotes.toscrape.com</p>
-                    </div>
-                </div>
-
-                <!-- History -->
-                <div class="panel history-panel">
-                    <h3><i class="fas fa-history"></i> Recent</h3>
-                    <div id="quotes-history" class="history-list">
-                        <div class="empty-history">
-                            <i class="fas fa-inbox"></i>
-                            <p>No history yet</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="compact-footer">
-            <div class="footer-content">
-                <p>
-                    <i class="fas fa-cogs"></i> Powered by 
-                    <a href="https://api.devnova.icu/api/tools/puppeteer" target="_blank">DevNova API</a>
-                </p>
-                <p>
-                    <i class="fas fa-heart"></i> Made with love by DevNova-ID
-                </p>
-            </div>
-        </footer>
+    <div class="container">
+        <!-- SVG Icon Offline -->
+        <div class="offline-icon">
+            <svg class="icon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#fff" opacity="0.1"/>
+                <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round">
+                    <!-- WiFi signal arcs -->
+                    <path d="M50,30 a20,20 0 0,1 0,40" opacity="0.7"/>
+                    <path d="M50,40 a10,10 0 0,1 0,20" opacity="0.8"/>
+                    <path d="M50,45 a5,5 0 0,1 0,10" opacity="0.9"/>
+                    <!-- Cross symbol -->
+                    <line x1="65" y1="65" x2="85" y2="85" stroke="#ff4444" stroke-width="8"/>
+                    <line x1="85" y1="65" x2="65" y2="85" stroke="#ff4444" stroke-width="8"/>
+                </g>
+            </svg>
+        </div>
+        
+        <h1>Anda Sedang Offline</h1>
+        <p class="subtitle">Koneksi internet Anda terputus. Silakan periksa koneksi jaringan Anda.</p>
+        
+        <div class="status">
+            <div class="status-indicator"></div>
+            <span id="status-text">Tidak terhubung ke internet</span>
+        </div>
+        
+        <div class="message">
+            <h2>
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M11,7V13L15,10L11,7Z"/>
+                </svg>
+                Yang dapat Anda lakukan:
+            </h2>
+            <ul>
+                <li>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18L5,6.3V11.22C5,15.54 8.25,20 12,21M12,6A3,3 0 0,1 15,9C15,10.31 14.17,11.42 13,11.83V14H15V16H13V18H11V11.83C9.83,11.42 9,10.31 9,9A3,3 0 0,1 12,6M12,8A1,1 0 0,0 11,9A1,1 0 0,0 12,10A1,1 0 0,0 13,9A1,1 0 0,0 12,8Z"/>
+                    </svg>
+                    Periksa koneksi Wi-Fi atau data seluler Anda
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12.9,2C12.9,2.2 13,2.4 13.1,2.6L16.1,9.6C16.3,10.1 16.1,10.6 15.6,10.8L9.9,13.1C9.7,13.2 9.5,13.2 9.3,13.1L3.6,10.8C3.1,10.6 2.9,10.1 3.1,9.6L6.1,2.6C6.2,2.4 6.3,2.2 6.5,2.1L12,0L12.9,2M20,18H4V12H6V16H18V12H20V18M20,20H4V22H20V20M13,4L11,9H13V10H15V9H17L15,4H13M11,12V14H8V12H11M16,12V14H13V12H16Z"/>
+                    </svg>
+                    Coba restart router atau modem Anda
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10.5,17.5C7.25,17.5 4.25,16 2.5,13.5C2.5,17 5.5,20 9,20C12.5,20 15.5,17 15.5,13.5C13.75,16 10.75,17.5 7.5,17.5C5.75,17.5 4.19,17 2.86,16.14C3.55,18.18 5.4,19.75 7.5,19.75C9.6,19.75 11.45,18.18 12.14,16.14C11.81,16.72 11.36,17.24 10.5,17.5M9,2C5.13,2 2,5.13 2,9C2,10.86 2.73,12.55 3.91,13.82C5.36,12.95 7.17,12.5 9,12.5C10.83,12.5 12.64,12.95 14.09,13.82C15.27,12.55 16,10.86 16,9C16,5.13 12.87,2 9,2M21,10H19V7H17V10H15V12H17V15H19V12H21V10Z"/>
+                    </svg>
+                    Aktifkan mode pesawat lalu nonaktifkan kembali
+                </li>
+                <li>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,12.5A1.5,1.5 0 0,1 10.5,11A1.5,1.5 0 0,1 12,9.5A1.5,1.5 0 0,1 13.5,11A1.5,1.5 0 0,1 12,12.5M12,7.2C9.9,7.2 8.2,8.9 8.2,11C8.2,14 12,17.5 12,17.5C12,17.5 15.8,14 15.8,11C15.8,8.9 14.1,7.2 12,7.2Z"/>
+                    </svg>
+                    Beberapa fitur tetap tersedia dalam mode offline
+                </li>
+            </ul>
+            <p>Halaman ini akan otomatis diperbarui ketika koneksi internet kembali.</p>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-primary" id="retry-btn">
+                <svg class="btn-icon rotate" viewBox="0 0 24 24" id="retry-icon">
+                    <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                </svg>
+                Coba Lagi
+            </button>
+            <button class="btn btn-secondary" id="reload-btn">
+                <svg class="btn-icon" viewBox="0 0 24 24">
+                    <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                </svg>
+                Muat Ulang Halaman
+            </button>
+        </div>
+        
+        <div class="connection-info">
+            <p>
+                <svg viewBox="0 0 24 24">
+                    <path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18L5,6.3V11.22C5,15.54 8.25,20 12,21Z"/>
+                </svg>
+                Status koneksi: <span id="connection-status">Memeriksa...</span>
+            </p>
+            <p>
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                </svg>
+                Terakhir diperbarui: <span id="last-updated">-</span>
+            </p>
+        </div>
     </div>
 
-    <!-- Toast -->
-    <div id="toast" class="toast">
-        <i id="toast-icon" class="fas fa-info-circle"></i>
-        <span id="toast-message"></span>
-    </div>
-
-    <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Update status koneksi
+        function updateConnectionStatus() {
+            const statusText = document.getElementById('status-text');
+            const connectionStatus = document.getElementById('connection-status');
+            const lastUpdated = document.getElementById('last-updated');
+            const retryIcon = document.getElementById('retry-icon');
+            
+            if (navigator.onLine) {
+                statusText.textContent = "Terhubung ke internet";
+                connectionStatus.textContent = "Online";
+                connectionStatus.style.color = "#4CAF50";
+                
+                // Hentikan animasi rotate
+                retryIcon.classList.remove('rotate');
+                
+                // Auto-redirect setelah 3 detik jika online
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 3000);
+            } else {
+                statusText.textContent = "Tidak terhubung ke internet";
+                connectionStatus.textContent = "Offline";
+                connectionStatus.style.color = "#ff4444";
+                
+                // Mulai animasi rotate
+                retryIcon.classList.add('rotate');
+            }
+            
+            // Update waktu
+            const now = new Date();
+            lastUpdated.textContent = now.toLocaleTimeString('id-ID');
+        }
+        
+        // Coba koneksi ulang
+        document.getElementById('retry-btn').addEventListener('click', function() {
+            const retryIcon = document.getElementById('retry-icon');
+            const statusText = document.getElementById('status-text');
+            
+            // Tambahkan animasi saat klik
+            retryIcon.classList.add('rotate');
+            statusText.textContent = "Memeriksa koneksi...";
+            
+            // Periksa koneksi setelah delay
+            setTimeout(() => {
+                updateConnectionStatus();
+            }, 1500);
+        });
+        
+        // Muat ulang halaman
+        document.getElementById('reload-btn').addEventListener('click', function() {
+            window.location.reload();
+        });
+        
+        // Periksa status koneksi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            updateConnectionStatus();
+            
+            // Update status koneksi secara berkala
+            setInterval(updateConnectionStatus, 10000);
+            
+            // Tambahkan event listener untuk perubahan status koneksi
+            window.addEventListener('online', updateConnectionStatus);
+            window.addEventListener('offline', updateConnectionStatus);
+        });
+    </script>
 </body>
 </html>
