@@ -8,11 +8,12 @@ on:
 jobs:
   contribute:
     runs-on: ubuntu-latest
+    environment: production  
 
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.BOT_TOKEN }}
+          token: ${{ secrets.BOT_TOKEN }} 
 
       - name: Set git identity
         run: |
