@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.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 }}
+          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Set git identity
         run: |
