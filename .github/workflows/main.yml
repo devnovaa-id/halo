@@ -2,18 +2,19 @@ name: Auto GitHub Contributions
 
 on:
   schedule:
-    - cron: '0 12 * * *' # setiap hari jam 12 siang UTC
+    # Contoh: commit setiap 6 jam (4 kali sehari)
+    - cron: '0 */6 * * *' # jam 00, 06, 12, 18 UTC
   workflow_dispatch:
 
 jobs:
   contribute:
     runs-on: ubuntu-latest
-    environment: production  
+    environment: production
 
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.BOT_TOKEN }} 
+          token: ${{ secrets.BOT_TOKEN }}
 
       - name: Set git identity
         run: |
@@ -22,8 +23,12 @@ jobs:
 
       - name: Create dummy commit
         run: |
-          DATE=$(date '+%Y-%m-%d %H:%M:%S')
-          echo "Update $DATE" >> dummy.txt
-          git add dummy.txt
-          git commit -m "Auto contribution $DATE" || echo "No changes"
+          # Loop untuk 3 commit sekaligus supaya lebih “full”
+          for i in {1..3}; do
+            DATE=$(date '+%Y-%m-%d %H:%M:%S')
+            echo "Update $DATE $i" >> dummy.txt
+            git add dummy.txt
+            git commit -m "Auto contribution $DATE $i" || echo "No changes"
+            sleep 2 # jeda kecil supaya commit hash berbeda
+          done
           git push origin main
