@@ -1,0 +1,28 @@
+name: Auto GitHub Contributions
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # setiap hari jam 12 siang UTC
+  workflow_dispatch:
+
+jobs:
+  contribute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.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 }}
+
+      - name: Set git identity
+        run: |
+          git config user.name "thiskey"
+          git config user.email "this.key@devnova.icu"
+
+      - name: Create dummy commit
+        run: |
+          DATE=$(date '+%Y-%m-%d %H:%M:%S')
+          echo "Update $DATE" >> dummy.txt
+          git add dummy.txt
+          git commit -m "Auto contribution $DATE" || echo "No changes"
+          git push origin main
